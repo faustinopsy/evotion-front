@@ -1,0 +1,3 @@
+# Projeto para aula especifica sobre integração de sistemas
+- as branches separadas estarão númeradas para mostrar uma evolução simples onde a master é o ponto zero, os elementos fixos serã oconvertidos em elementos ainda estaticos mas não no html e sim no javascript, depois os elementos serão convertidos em objetos e depois serão vindos de fontes externas, quando me refiro aos elementos é especificamente a lista de usuários.
+- esse readme irá ser alterado assim que possivel
