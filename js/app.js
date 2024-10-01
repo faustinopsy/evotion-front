@@ -3,6 +3,15 @@ const users =[
     {"usuario_id":1,"nome":"LLL UUU OOO","email":"llllll@ri.com"},
     {"usuario_id":1,"nome":"ZZZ OOO EEE","email":"zzzzz@gmail.com"},
 ]
+async function buscaUsers(){
+    try {
+        const response = await fetch("http://localhost:8080/users");
+        const result = await response.json();
+        return result
+      } catch (error) {
+        console.error(error);
+      };
+}
 function crieForm(){
     const form = document.createElement('form')
     form.id = "formUsers"
@@ -16,9 +25,10 @@ function crieForm(){
         <button>Enviar</button>`
     return form
 }
-function criaLista(){
+async function criaLista(){
     const lista = document.createElement('ul')
     lista.id = "listausers"
+    const users = await buscaUsers();
     users.forEach((usuario)=>{
         const li = document.createElement('li')
         li.innerHTML = `${usuario.nome} , ${usuario.email}`
@@ -27,7 +37,12 @@ function criaLista(){
     return lista
 }
 
-const panel = document.createElement('div')
-panel.appendChild(crieForm())
-panel.appendChild(criaLista())
-document.getElementById("app").appendChild(panel);
+async function iniciar() {
+    const lista = await criaLista(); 
+    const panel = document.createElement('div');
+    panel.appendChild(crieForm());
+    panel.appendChild(lista);
+    document.getElementById("app").appendChild(panel);
+}
+
+iniciar();
