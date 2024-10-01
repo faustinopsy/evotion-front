@@ -22,7 +22,8 @@ async function enviarUsers(dados){
             body: JSON.stringify(dados)
         });
         const result = await response.json();
-        console.log(result)
+        alert(result.message)
+        iniciar()
         return result
       } catch (error) {
         console.error(error);
@@ -67,11 +68,13 @@ async function criaLista(){
 }
 
 async function iniciar() {
+    const app = document.getElementById("app")
+    app.innerHTML = ""
     const lista = await criaLista(); 
     const panel = document.createElement('div');
     panel.appendChild(crieForm());
     panel.appendChild(lista);
-    document.getElementById("app").appendChild(panel);
+    app.appendChild(panel);
     capturaForm()
 }
 
