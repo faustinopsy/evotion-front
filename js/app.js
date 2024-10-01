@@ -4,8 +4,6 @@ const users =[
     {"usuario_id":1,"nome":"ZZZ OOO EEE","email":"zzzzz@gmail.com"},
 ]
 async function buscaUsers(){
-    const user = await buscaUsersId(34)
-    console.log(user)
     try {
         const response = await fetch("http://localhost:8080/users");
         const result = await response.json();
@@ -60,6 +58,7 @@ function crieForm(){
     const form = document.createElement('form')
     form.id = "formUsers"
     form.innerHTML = `
+        <input type="text" name="id" id="id" hidden>
         <label for="nome">Nome</label>
         <input type="text" name="nome" id="nome">
         <label for="email">email</label>
@@ -85,8 +84,12 @@ function iniciaEventos(){
     
     botaoEditar.forEach(button => {
         button.addEventListener('click', async (e) => {
-            const id = e.target.getAttribute('data-id');
-            console.log(id)
+            const id = e.target.getAttribute('data-id'); 
+            const user = await buscaUsersId(id)
+            form.elements['id'].value = user.usuario_id;
+            form.elements['nome'].value = user.nome;
+            form.elements['email'].value = user.email;
+            form.elements['senha'].value = '';
         });
     });
 
