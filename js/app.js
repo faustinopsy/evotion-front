@@ -22,8 +22,21 @@ function crieForm(){
         <input type="email" name="email" id="email">
         <label for="senha">senha</label>
         <input type="password" name="senha" id="senha">
-        <button>Enviar</button>`
+        <button type="submit">Enviar</button>`
     return form
+}
+function capturaForm(){
+    const form = document.getElementById("formUsers")
+    form.addEventListener("submit", (e)=>{
+        e.preventDefault()
+        const usuario ={
+            nome: document.getElementById("nome").value,
+            email: document.getElementById("email").value,
+            senha: document.getElementById("senha").value
+        }
+
+        console.log(usuario)
+    })
 }
 async function criaLista(){
     const lista = document.createElement('ul')
@@ -43,6 +56,7 @@ async function iniciar() {
     panel.appendChild(crieForm());
     panel.appendChild(lista);
     document.getElementById("app").appendChild(panel);
+    capturaForm()
 }
 
 iniciar();
