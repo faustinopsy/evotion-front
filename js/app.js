@@ -42,8 +42,9 @@ function crieForm(){
         <button type="submit">Enviar</button>`
     return form
 }
-function capturaForm(){
+function iniciaEventos(){
     const form = document.getElementById("formUsers")
+    const botaoEditar = document.querySelectorAll('.update');
     form.addEventListener("submit", (e)=>{
         e.preventDefault()
         const usuario ={
@@ -52,8 +53,14 @@ function capturaForm(){
             senha: document.getElementById("senha").value
         }
         enviarUsers(usuario)
-        
     })
+    
+    botaoEditar.forEach(button => {
+        button.addEventListener('click', async (e) => {
+            const id = e.target.getAttribute('data-id');
+            console.log(id)
+        });
+    });
 }
 async function criaLista(){
     const lista = document.createElement('ul')
@@ -61,7 +68,7 @@ async function criaLista(){
     const users = await buscaUsers();
     users.forEach((usuario)=>{
         const li = document.createElement('li')
-        li.innerHTML = `${usuario.nome} , ${usuario.email}`
+        li.innerHTML = `${usuario.nome} , ${usuario.email} <button class="update" data-id="${usuario.usuario_id}">Editar</button` 
         lista.appendChild(li)
     })
     return lista
@@ -75,7 +82,7 @@ async function iniciar() {
     panel.appendChild(crieForm());
     panel.appendChild(lista);
     app.appendChild(panel);
-    capturaForm()
+    iniciaEventos()
 }
 
 iniciar();
