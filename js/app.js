@@ -45,6 +45,7 @@ function crieForm(){
 function iniciaEventos(){
     const form = document.getElementById("formUsers")
     const botaoEditar = document.querySelectorAll('.update');
+    const botaoDeletar = document.querySelectorAll('.delete');
     form.addEventListener("submit", (e)=>{
         e.preventDefault()
         const usuario ={
@@ -61,6 +62,13 @@ function iniciaEventos(){
             console.log(id)
         });
     });
+
+    botaoDeletar.forEach(button => {
+        button.addEventListener('click', async (e) => {
+            const id = e.target.getAttribute('data-id');
+            console.log(id)
+        });
+    });
 }
 async function criaLista(){
     const lista = document.createElement('ul')
@@ -68,7 +76,10 @@ async function criaLista(){
     const users = await buscaUsers();
     users.forEach((usuario)=>{
         const li = document.createElement('li')
-        li.innerHTML = `${usuario.nome} , ${usuario.email} <button class="update" data-id="${usuario.usuario_id}">Editar</button` 
+        li.innerHTML = `${usuario.nome} , ${usuario.email} 
+        <button class="update" data-id="${usuario.usuario_id}">Editar</button>
+        <button class="delete" data-id="${usuario.usuario_id}">Excluir</button>
+        ` 
         lista.appendChild(li)
     })
     return lista
