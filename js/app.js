@@ -12,6 +12,22 @@ async function buscaUsers(){
         console.error(error);
       };
 }
+async function enviarUsers(dados){
+    try {
+        const response = await fetch("http://localhost:8080/users",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'aplication/json'
+            },
+            body: JSON.stringify(dados)
+        });
+        const result = await response.json();
+        console.log(result)
+        return result
+      } catch (error) {
+        console.error(error);
+      };
+}
 function crieForm(){
     const form = document.createElement('form')
     form.id = "formUsers"
@@ -34,8 +50,8 @@ function capturaForm(){
             email: document.getElementById("email").value,
             senha: document.getElementById("senha").value
         }
-
-        console.log(usuario)
+        enviarUsers(usuario)
+        
     })
 }
 async function criaLista(){
