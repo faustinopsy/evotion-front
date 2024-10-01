@@ -4,8 +4,19 @@ const users =[
     {"usuario_id":1,"nome":"ZZZ OOO EEE","email":"zzzzz@gmail.com"},
 ]
 async function buscaUsers(){
+    const user = await buscaUsersId(34)
+    console.log(user)
     try {
         const response = await fetch("http://localhost:8080/users");
+        const result = await response.json();
+        return result
+      } catch (error) {
+        console.error(error);
+      };
+}
+async function buscaUsersId(id){
+    try {
+        const response = await fetch(`http://localhost:8080/users/${id}`);
         const result = await response.json();
         return result
       } catch (error) {
