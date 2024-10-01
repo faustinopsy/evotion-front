@@ -29,6 +29,22 @@ async function enviarUsers(dados){
         console.error(error);
       };
 }
+async function excluirUser(id){
+    try {
+        const response = await fetch(`http://localhost:8080/users/${id}`,{
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'aplication/json'
+            }
+        });
+        const result = await response.json();
+        alert(result.message)
+        iniciar()
+        return result
+      } catch (error) {
+        console.error(error);
+      };
+}
 function crieForm(){
     const form = document.createElement('form')
     form.id = "formUsers"
@@ -66,7 +82,7 @@ function iniciaEventos(){
     botaoDeletar.forEach(button => {
         button.addEventListener('click', async (e) => {
             const id = e.target.getAttribute('data-id');
-            console.log(id)
+            excluirUser(id)
         });
     });
 }
