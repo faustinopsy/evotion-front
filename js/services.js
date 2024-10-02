@@ -1,6 +1,7 @@
+const url = "http://localhost:8080/users"
 async function buscaUsers(){
     try {
-        const response = await fetch("http://localhost:8080/users");
+        const response = await fetch(`${url}`);
         const result = await response.json();
         return result
       } catch (error) {
@@ -9,7 +10,7 @@ async function buscaUsers(){
 }
 async function buscaUsersId(id){
     try {
-        const response = await fetch(`http://localhost:8080/users/${id}`);
+        const response = await fetch(`${url}/${id}`);
         const result = await response.json();
         return result
       } catch (error) {
@@ -18,7 +19,7 @@ async function buscaUsersId(id){
 }
 async function enviarUsers(dados, callback){
     try {
-        const response = await fetch("http://localhost:8080/users",{
+        const response = await fetch(`${url}`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'aplication/json'
@@ -35,7 +36,7 @@ async function enviarUsers(dados, callback){
 }
 async function excluirUser(id, callback){
     try {
-        const response = await fetch(`http://localhost:8080/users/${id}`,{
+        const response = await fetch(`${url}/${id}`,{
             method: 'DELETE',
             headers: {
                 'Content-Type': 'aplication/json'
@@ -51,7 +52,7 @@ async function excluirUser(id, callback){
 }
 async function atualizarUser(id, dados, callback){
     try {
-        const response = await fetch(`http://localhost:8080/users/${id}`,{
+        const response = await fetch(`${url}/${id}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'aplication/json'
