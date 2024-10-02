@@ -16,7 +16,7 @@ async function buscaUsersId(id){
         console.error(error);
       };
 }
-async function enviarUsers(dados){
+async function enviarUsers(dados, callback){
     try {
         const response = await fetch("http://localhost:8080/users",{
             method: 'POST',
@@ -27,13 +27,13 @@ async function enviarUsers(dados){
         });
         const result = await response.json();
         alert(result.message)
-        iniciar()
+        callback()
         return result
       } catch (error) {
         console.error(error);
       };
 }
-async function excluirUser(id){
+async function excluirUser(id, callback){
     try {
         const response = await fetch(`http://localhost:8080/users/${id}`,{
             method: 'DELETE',
@@ -43,13 +43,13 @@ async function excluirUser(id){
         });
         const result = await response.json();
         alert(result.message)
-        iniciar()
+        callback()
         return result
       } catch (error) {
         console.error(error);
       };
 }
-async function atualizarUser(id, dados){
+async function atualizarUser(id, dados, callback){
     try {
         const response = await fetch(`http://localhost:8080/users/${id}`,{
             method: 'PUT',
@@ -60,7 +60,7 @@ async function atualizarUser(id, dados){
         });
         const result = await response.json();
         alert(result.message)
-        iniciar()
+        callback()
         return result
       } catch (error) {
         console.error(error);
