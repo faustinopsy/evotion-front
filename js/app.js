@@ -54,11 +54,28 @@ async function excluirUser(id){
         console.error(error);
       };
 }
+async function atualizarUser(id, dados){
+    try {
+        const response = await fetch(`http://localhost:8080/users/${id}`,{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'aplication/json'
+            },
+            body: JSON.stringify(dados)
+        });
+        const result = await response.json();
+        alert(result.message)
+        iniciar()
+        return result
+      } catch (error) {
+        console.error(error);
+      };
+}
 function crieForm(){
     const form = document.createElement('form')
     form.id = "formUsers"
     form.innerHTML = `
-        <input type="text" name="id" id="id" hidden>
+        <input type="text" name="userid" id="userid" hidden>
         <label for="nome">Nome</label>
         <input type="text" name="nome" id="nome">
         <label for="email">email</label>
@@ -74,19 +91,26 @@ function iniciaEventos(){
     const botaoDeletar = document.querySelectorAll('.delete');
     form.addEventListener("submit", (e)=>{
         e.preventDefault()
+
+        const id = document.getElementById("userid").value
         const usuario ={
             nome: document.getElementById("nome").value,
             email: document.getElementById("email").value,
             senha: document.getElementById("senha").value
         }
-        enviarUsers(usuario)
+
+        if(id=="" || id===""){
+            enviarUsers(usuario)
+        }else{
+            atualizarUser(id, usuario)
+        }
     })
     
     botaoEditar.forEach(button => {
         button.addEventListener('click', async (e) => {
             const id = e.target.getAttribute('data-id'); 
             const user = await buscaUsersId(id)
-            form.elements['id'].value = user.usuario_id;
+            form.elements['userid'].value = user.usuario_id;
             form.elements['nome'].value = user.nome;
             form.elements['email'].value = user.email;
             form.elements['senha'].value = '';
